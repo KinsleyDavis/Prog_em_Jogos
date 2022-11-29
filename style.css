@@ -1,0 +1,19 @@
+body {
+  background-color:black;
+  background: black;
+  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+div{
+  display: block;
+  margin: 20px;
+}
+r{color: red;}
+v{color: white;}
+
+
+
+

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css"> 
+    <script src = "Input.js"></script>
+    <script src = "Utils.js"></script>
+    <script src = "Component.js"></script>
+    <script src = "World.js"></script>
+<body>   
+  <div>
+    <p><v>MOVIMENTAÇÃO:</v> <r>SETAS DIRECIONAIS</r> <p>
+    <p><v>RECOMEÇAR AO MORRER:</v> <r>ESPAÇO</r></p>
+  </div> 
+<canvas id="gameCanvas" width="500" height="500" style="border:1px solid #000000;">
+        Your browser does not suport canvas
+    </canvas>
+</div>    
+    
+
+<script>
+window.onload = function() {
+	var world = new World();
+}    
+    
+key = false;
+colidiu=false;
+
+
+window.addEventListener('keydown', function (e) {
+    key = e.keyCode;
+})
+window.addEventListener('keyup', function (e) {
+    key = false;
+})
+
+setInterval(Update,10);
+
+var Player = new Component(50,50,"red",50,200);
+
+var velocidadeX = 0;
+var velocidadeY = 0;
+var tempo = 0;
+var fase = 1;
+var obstaculos = []
+var score = 0
+var aperteiEspaco = false
+
+
+function Update(){
+    Input.checarkey()
+    Utils.limpar()
+    Utils.movimento()
+    if(tempo%200==0){
+      Utils.criarObstaculo()
+    }
+
+    tempo +=1;
+
+    for (i = 0; i < obstaculos.length; i += 1) {
+        if (Player.crashWith(obstaculos[i])) 
+            {                                    
+             //console.log("colidiu");   
+                                 
+        } 
+    }
+
+    Utils.mostrarScore()
+
+    if (score < 0) {Utils.gameOver()}
+    if(aperteiEspaco == true ){Utils.reset()}
+    aperteiEspaco = false
+    if(tempo>4000){fase=2}
+    if(tempo>8000){fase=3}
+    
+}
+
+
+Utils.limpar();
+Utils.movimento()
+Utils.criarObstaculo()
+Utils.desenhaObstaculos(a)
+Utils.moverObstaculos(a)
+Utils.mostrarScore();
+Utils.gameOver();
+Utils.reset();
+
+</script>
+</html>
